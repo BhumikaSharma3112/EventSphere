@@ -1,23 +1,23 @@
 @import "tailwindcss";
 
 @theme {
-  --color-luxury-blush: #FFF0F1;
-  --color-luxury-blush-dark: #FADCD9;
-  --color-luxury-cream: #FCFAF6;
-  --color-luxury-beige: #F5F2EB;
-  --color-luxury-gold: #D4AF37;
-  --color-luxury-light-gold: #E5D3B3;
-  --color-luxury-gold-dark: #A6801E;
-  --color-luxury-dark: #2C2623;
-  --color-luxury-muted: #7E736D;
-  --color-luxury-pink-accent: #F8C8DC;
+  --color-luxury-blush: #FADCD9;
+  --color-luxury-blush-dark: #E8B4B8;
+  --color-luxury-cream: #EADEC9;
+  --color-luxury-beige: #D5C7B0;
+  --color-luxury-gold: #C5A880;
+  --color-luxury-light-gold: #DFCDB4;
+  --color-luxury-gold-dark: #9F825B;
+  --color-luxury-dark: #231C1A;
+  --color-luxury-muted: #6E635D;
+  --color-luxury-pink-accent: #E2B2C2;
   
   --font-display: "Playfair Display", serif;
   --font-sans: "Poppins", sans-serif;
   
-  --shadow-luxury: 0 10px 30px -10px rgba(44, 38, 35, 0.08);
-  --shadow-luxury-lg: 0 20px 40px -15px rgba(44, 38, 35, 0.12);
-  --shadow-glass: 0 8px 32px 0 rgba(197, 168, 128, 0.08);
+  --shadow-luxury: 0 10px 30px -10px rgba(35, 28, 26, 0.08);
+  --shadow-luxury-lg: 0 20px 40px -15px rgba(35, 28, 26, 0.12);
+  --shadow-glass: 0 8px 32px 0 rgba(197, 168, 128, 0.12);
 }
 
 @layer base {
