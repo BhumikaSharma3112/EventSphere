@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'http://localhost:5000/api',
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json'
@@ -31,7 +31,8 @@ export const getImageUrl = (imagePath) => {
   if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
     return imagePath;
   }
-  return `http://localhost:5000${imagePath}`;
+  const backendHost = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
+  return `${backendHost}${imagePath}`;
 };
 
 export default API;
