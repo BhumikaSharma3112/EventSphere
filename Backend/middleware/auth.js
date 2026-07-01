@@ -13,10 +13,16 @@ const protect = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET || 'eventsphere_secret_key_12345');
-    req.user = await User.findById(decoded.id);
+    const { getFallbackMode } = require('../config/db');
+    const mockDb = require('../utils/mockDb');
+    
+    if (getFallbackMode()) {
+      req.user = mockDb.getUsers().find(u => u._id === decoded.id);
+    } else {
+      req.user = await User.findById(decoded.id);
+    }
+
     if (!req.user) {
-      // Fallback/mock check in case DB not connected and running in mock environment
-      // We'll create a fake user object for debugging if needed
       return res.status(401).json({ success: false, message: 'User not found' });
     }
     
