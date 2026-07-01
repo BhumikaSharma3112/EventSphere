@@ -1,12 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { CheckCircle2, AlertCircle, X } from 'lucide-react';
 import gsap from 'gsap';
 
 const Toast = ({ message, type = 'success', onClose, duration = 4000 }) => {
+  const toastRef = useRef(null);
+
   useEffect(() => {
+    if (!message || !toastRef.current) return;
+
     // Slide in animation
     gsap.fromTo(
-      '.toast-container',
+      toastRef.current,
       { x: 100, opacity: 0 },
       { x: 0, opacity: 1, duration: 0.4, ease: 'power3.out' }
     );
@@ -19,7 +23,11 @@ const Toast = ({ message, type = 'success', onClose, duration = 4000 }) => {
   }, [message, duration]);
 
   const handleClose = () => {
-    gsap.to('.toast-container', {
+    if (!toastRef.current) {
+      if (onClose) onClose();
+      return;
+    }
+    gsap.to(toastRef.current, {
       x: 100,
       opacity: 0,
       duration: 0.3,
@@ -30,7 +38,7 @@ const Toast = ({ message, type = 'success', onClose, duration = 4000 }) => {
   if (!message) return null;
 
   return (
-    <div className="toast-container fixed top-24 right-6 z-50 flex items-center gap-3 bg-white border border-[#E5D3B3]/40 rounded-2xl shadow-luxury-lg px-4.5 py-3.5 max-w-sm">
+    <div ref={toastRef} className="fixed top-24 right-6 z-50 flex items-center gap-3 bg-white border border-[#E5D3B3]/40 rounded-2xl shadow-luxury-lg px-4.5 py-3.5 max-w-sm">
       {type === 'success' ? (
         <CheckCircle2 className="h-5 w-5 text-emerald-500 shrink-0" />
       ) : (

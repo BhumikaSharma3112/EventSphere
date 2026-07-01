@@ -1,18 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { X } from 'lucide-react';
 import gsap from 'gsap';
 
 const Modal = ({ isOpen, onClose, title, children }) => {
+  const backdropRef = useRef(null);
+  const contentRef = useRef(null);
+
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && backdropRef.current && contentRef.current) {
       // Animate modal entry
       gsap.fromTo(
-        '.modal-backdrop',
+        backdropRef.current,
         { opacity: 0 },
         { opacity: 1, duration: 0.3 }
       );
       gsap.fromTo(
-        '.modal-content',
+        contentRef.current,
         { scale: 0.9, opacity: 0, y: 20 },
         { scale: 1, opacity: 1, y: 0, duration: 0.4, ease: 'power3.out' }
       );
@@ -28,8 +31,8 @@ const Modal = ({ isOpen, onClose, title, children }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="modal-backdrop fixed inset-0 bg-luxury-dark/45 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="modal-content bg-white w-full max-w-lg rounded-3xl shadow-luxury-lg overflow-hidden border border-[#E5D3B3]/40">
+    <div ref={backdropRef} className="fixed inset-0 bg-luxury-dark/45 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <div ref={contentRef} className="bg-white w-full max-w-lg rounded-3xl shadow-luxury-lg overflow-hidden border border-[#E5D3B3]/40">
         
         {/* Modal Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-luxury-beige">
