@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-serif'; // Wait, let's use standard react-router-dom!
 import { ArrowRight, Award, CheckCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link as RouterLink } from 'react-router-dom';
+import { getImageUrl } from '../services/api';
 
 const OrganizerCard = ({ organizer }) => {
   return (
@@ -16,7 +16,7 @@ const OrganizerCard = ({ organizer }) => {
       <div className="relative mb-4">
         <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-luxury-gold p-0.5 transition-transform duration-500 group-hover:rotate-6">
           <img
-            src={organizer.profilePicture}
+            src={getImageUrl(organizer.profilePicture)}
             alt={organizer.name}
             className="w-full h-full object-cover rounded-full"
           />

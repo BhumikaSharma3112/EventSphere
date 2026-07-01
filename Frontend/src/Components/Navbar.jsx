@@ -5,6 +5,7 @@ import { logout } from '../redux/slices/authSlice';
 import { fetchNotifications, markNotificationsRead } from '../redux/slices/notificationSlice';
 import { Menu, X, Bell, User, Calendar, Ticket, Heart, Settings, LogOut, Award, Sparkles } from 'lucide-react';
 import gsap from 'gsap';
+import { getImageUrl } from '../services/api';
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -173,7 +174,7 @@ const Navbar = () => {
                 className="flex items-center gap-2 p-1 pl-2 pr-3 rounded-full bg-luxury-beige/40 hover:bg-luxury-beige/80 border border-[#E5D3B3]/20 transition-all duration-300 cursor-pointer"
               >
                 <img
-                  src={user?.profilePicture}
+                  src={getImageUrl(user?.profilePicture)}
                   alt={user?.name}
                   className="h-7 w-7 rounded-full object-cover border border-[#E5D3B3]"
                 />

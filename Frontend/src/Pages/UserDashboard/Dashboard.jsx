@@ -4,6 +4,7 @@ import DashboardLayout from '../../layouts/DashboardLayout';
 import TicketCard from '../../Components/TicketCard';
 import API from '../../services/api';
 import { Calendar, Heart, Ticket, User, Sparkles } from 'lucide-react';
+import { getImageUrl } from '../../services/api';
 import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
@@ -47,7 +48,7 @@ const Dashboard = () => {
           </p>
         </div>
         <img 
-          src={user?.profilePicture} 
+          src={getImageUrl(user?.profilePicture)} 
           alt="" 
           className="h-16 w-16 rounded-full object-cover border border-[#E5D3B3]"
         />

@@ -5,6 +5,7 @@ import EventCard from '../Components/EventCard';
 import Loader from '../Components/Loader';
 import API from '../services/api';
 import { Calendar, Globe, Mail, ShieldCheck } from 'lucide-react';
+import { getImageUrl } from '../services/api';
 
 const OrganizerProfile = () => {
   const { organizerId } = useParams();
@@ -58,7 +59,7 @@ const OrganizerProfile = () => {
         <section className="bg-white border border-[#E5D3B3]/45 rounded-3xl p-8 shadow-luxury flex flex-col md:flex-row items-center md:items-start gap-8 mb-16">
           <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-luxury-gold p-0.5 shrink-0">
             <img
-              src={organizer?.profilePicture}
+              src={getImageUrl(organizer?.profilePicture)}
               alt={organizer?.name}
               className="w-full h-full object-cover rounded-full"
             />

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Star } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { getImageUrl } from '../services/api';
 
 const ReviewCard = ({ review }) => {
   const userObj = review.user || {};
@@ -16,7 +17,7 @@ const ReviewCard = ({ review }) => {
         {/* User profile */}
         <div className="flex items-center gap-3">
           <img
-            src={userObj.profilePicture || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=100'}
+            src={getImageUrl(userObj.profilePicture)}
             alt={userObj.name}
             className="w-10 h-10 rounded-full object-cover border border-[#E5D3B3]"
           />

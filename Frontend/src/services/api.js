@@ -20,4 +20,18 @@ API.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
+/**
+ * Resolves static media relative paths to backend address, 
+ * or returns standard placeholder avatars if null.
+ */
+export const getImageUrl = (imagePath) => {
+  if (!imagePath) {
+    return 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=200';
+  }
+  if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
+    return imagePath;
+  }
+  return `http://localhost:5000${imagePath}`;
+};
+
 export default API;

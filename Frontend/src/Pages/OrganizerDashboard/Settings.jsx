@@ -4,6 +4,7 @@ import { updateProfile } from '../../redux/slices/authSlice';
 import DashboardLayout from '../../layouts/DashboardLayout';
 import Toast from '../../Components/Toast';
 import { User, Phone, BookOpen, Camera, Globe, Building } from 'lucide-react';
+import { getImageUrl } from '../../services/api';
 
 const Settings = () => {
   const dispatch = useDispatch();
@@ -70,7 +71,7 @@ const Settings = () => {
           <div className="flex items-center gap-6 pb-4 border-b border-luxury-beige">
             <div className="relative">
               <img
-                src={profilePic ? URL.createObjectURL(profilePic) : user?.profilePicture}
+                src={profilePic ? URL.createObjectURL(profilePic) : getImageUrl(user?.profilePicture)}
                 alt=""
                 className="w-16 h-16 rounded-full object-cover border border-[#E5D3B3]"
               />
