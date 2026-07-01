@@ -82,7 +82,10 @@ const register = async (req, res) => {
 
   } catch (error) {
     console.error('Register Error:', error);
-    res.status(500).json({ success: false, message: error.message });
+    res.status(500).json({ 
+      success: false, 
+      message: `Register Error: ${error.message}. (Tip: If local MongoDB is in an unwriteable state, stop the service to activate the automatic In-Memory database mode).` 
+    });
   }
 };
 
@@ -153,7 +156,10 @@ const login = async (req, res) => {
 
   } catch (error) {
     console.error('Login Error:', error);
-    res.status(500).json({ success: false, message: error.message });
+    res.status(500).json({ 
+      success: false, 
+      message: `Login Error: ${error.message}. (Tip: If local MongoDB is in an unwriteable state, stop the service to activate the automatic In-Memory database mode).` 
+    });
   }
 };
 
