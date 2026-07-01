@@ -1,5 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchMe } from './redux/slices/authSlice';
+
+// Route Protection
+import ProtectedRoute from './Components/ProtectedRoute';
 
 // Public Pages
 import Home from './Pages/Home';
@@ -36,6 +41,15 @@ import ReportsAdmin from './Pages/AdminDashboard/Reports';
 import AdminSettings from './Pages/AdminDashboard/Settings';
 
 const App = () => {
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.auth.token);
+
+  useEffect(() => {
+    if (token) {
+      dispatch(fetchMe());
+    }
+  }, [dispatch, token]);
+
   return (
     <Routes>
       {/* Public Pages */}
@@ -50,27 +64,139 @@ const App = () => {
       <Route path="/signup" element={<Signup />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
 
-      {/* Attendee User Dashboards */}
-      <Route path="/dashboard" element={<UserDashboard />} />
-      <Route path="/dashboard/tickets" element={<MyTickets />} />
-      <Route path="/dashboard/wishlist" element={<Wishlist />} />
-      <Route path="/dashboard/settings" element={<UserSettings />} />
+      {/* Attendee User Dashboards (Protected, allowed role: 'user') */}
+      <Route 
+        path="/dashboard" 
+        element={
+          <ProtectedRoute allowedRoles={['user']}>
+            <UserDashboard />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/dashboard/tickets" 
+        element={
+          <ProtectedRoute allowedRoles={['user']}>
+            <MyTickets />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/dashboard/wishlist" 
+        element={
+          <ProtectedRoute allowedRoles={['user']}>
+            <Wishlist />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/dashboard/settings" 
+        element={
+          <ProtectedRoute allowedRoles={['user']}>
+            <UserSettings />
+          </ProtectedRoute>
+        } 
+      />
 
-      {/* Organizer Dashboards */}
-      <Route path="/organizer" element={<OrganizerDashboard />} />
-      <Route path="/organizer/create" element={<CreateEvent />} />
-      <Route path="/organizer/events" element={<MyEvents />} />
-      <Route path="/organizer/attendees/:eventId" element={<AttendeesCheckIn />} />
-      <Route path="/organizer/reviews" element={<OrganizerReviews />} />
-      <Route path="/organizer/settings" element={<OrganizerSettings />} />
+      {/* Organizer Dashboards (Protected, allowed role: 'organizer') */}
+      <Route 
+        path="/organizer" 
+        element={
+          <ProtectedRoute allowedRoles={['organizer']}>
+            <OrganizerDashboard />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/organizer/create" 
+        element={
+          <ProtectedRoute allowedRoles={['organizer']}>
+            <CreateEvent />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/organizer/events" 
+        element={
+          <ProtectedRoute allowedRoles={['organizer']}>
+            <MyEvents />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/organizer/attendees/:eventId" 
+        element={
+          <ProtectedRoute allowedRoles={['organizer']}>
+            <AttendeesCheckIn />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/organizer/reviews" 
+        element={
+          <ProtectedRoute allowedRoles={['organizer']}>
+            <OrganizerReviews />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/organizer/settings" 
+        element={
+          <ProtectedRoute allowedRoles={['organizer']}>
+            <OrganizerSettings />
+          </ProtectedRoute>
+        } 
+      />
 
-      {/* Admin Dashboards */}
-      <Route path="/admin" element={<AdminDashboard />} />
-      <Route path="/admin/users" element={<UserManagement />} />
-      <Route path="/admin/verification" element={<OrganizerVerification />} />
-      <Route path="/admin/categories" element={<CategoriesAdmin />} />
-      <Route path="/admin/reports" element={<ReportsAdmin />} />
-      <Route path="/admin/settings" element={<AdminSettings />} />
+      {/* Admin Dashboards (Protected, allowed role: 'admin') */}
+      <Route 
+        path="/admin" 
+        element={
+          <ProtectedRoute allowedRoles={['admin']}>
+            <AdminDashboard />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/admin/users" 
+        element={
+          <ProtectedRoute allowedRoles={['admin']}>
+            <UserManagement />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/admin/verification" 
+        element={
+          <ProtectedRoute allowedRoles={['admin']}>
+            <OrganizerVerification />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/admin/categories" 
+        element={
+          <ProtectedRoute allowedRoles={['admin']}>
+            <CategoriesAdmin />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/admin/reports" 
+        element={
+          <ProtectedRoute allowedRoles={['admin']}>
+            <ReportsAdmin />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/admin/settings" 
+        element={
+          <ProtectedRoute allowedRoles={['admin']}>
+            <AdminSettings />
+          </ProtectedRoute>
+        } 
+      />
 
       {/* 404 Page Fallback */}
       <Route path="*" element={<NotFound />} />
