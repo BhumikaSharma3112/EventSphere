@@ -7,7 +7,7 @@ import Loader from '../Components/Loader';
 import ReviewCard from '../Components/ReviewCard';
 import Modal from '../Components/Modal';
 import Toast from '../Components/Toast';
-import API from '../services/api';
+import API, { getImageUrl } from '../services/api';
 import confetti from 'canvas-confetti';
 import { 
   Calendar, MapPin, Sparkles, User, Ticket, Award, 
@@ -138,7 +138,7 @@ const EventDetails = () => {
           {/* Banner */}
           <div className="aspect-[16/10] w-full rounded-3xl overflow-hidden shadow-luxury border border-[#E5D3B3]/25 bg-luxury-beige">
             <img
-              src={currentEvent.bannerImage.startsWith('http') ? currentEvent.bannerImage : `http://localhost:5000${currentEvent.bannerImage}`}
+              src={getImageUrl(currentEvent.bannerImage)}
               alt={currentEvent.title}
               className="w-full h-full object-cover"
             />
@@ -164,7 +164,7 @@ const EventDetails = () => {
               <div className="grid grid-cols-3 gap-4">
                 {currentEvent.galleryImages.map((img, idx) => (
                   <div key={idx} className="aspect-square rounded-2xl overflow-hidden bg-luxury-beige border border-[#E5D3B3]/20 shadow-sm">
-                    <img src={img.startsWith('http') ? img : `http://localhost:5000${img}`} alt="" className="w-full h-full object-cover hover:scale-105 transition-all duration-500" />
+                    <img src={getImageUrl(img)} alt="" className="w-full h-full object-cover hover:scale-105 transition-all duration-500" />
                   </div>
                 ))}
               </div>

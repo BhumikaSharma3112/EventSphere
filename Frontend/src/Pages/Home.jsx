@@ -11,6 +11,7 @@ import StatisticsCounter from '../Components/StatisticsCounter';
 import { Sparkles, Calendar, ArrowRight, Award, Quote, ChevronDown, Compass } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
+import { getImageUrl } from '../services/api';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -134,7 +135,7 @@ const Home = () => {
           <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-10">
             <div className="w-full md:w-1/2 aspect-[4/3] rounded-3xl overflow-hidden shadow-luxury border border-[#E5D3B3]/20 relative">
               <img
-                src={featuredEvent.bannerImage.startsWith('http') ? featuredEvent.bannerImage : `http://localhost:5000${featuredEvent.bannerImage}`}
+                src={getImageUrl(featuredEvent.bannerImage)}
                 alt={featuredEvent.title}
                 className="w-full h-full object-cover"
               />

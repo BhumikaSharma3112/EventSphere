@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Calendar, MapPin, Sparkles, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { getImageUrl } from '../services/api';
 
 const EventCard = ({ event, onWishlistToggle, isWishlisted }) => {
   const dateObj = new Date(event.date);
@@ -23,7 +24,7 @@ const EventCard = ({ event, onWishlistToggle, isWishlisted }) => {
       {/* Banner Area */}
       <div className="relative aspect-[16/10] w-full overflow-hidden bg-luxury-beige">
         <img
-          src={event.bannerImage.startsWith('http') ? event.bannerImage : `http://localhost:5000${event.bannerImage}`}
+          src={getImageUrl(event.bannerImage)}
           alt={event.title}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           onError={(e) => {

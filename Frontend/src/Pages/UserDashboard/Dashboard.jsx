@@ -26,7 +26,8 @@ const Dashboard = () => {
   }, []);
 
   const handleDownload = async (ticketId) => {
-    window.open(`http://localhost:5000/api/tickets/download/${ticketId}`, '_blank');
+    const backendHost = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
+    window.open(`${backendHost}/api/tickets/download/${ticketId}`, '_blank');
   };
 
   const activeTickets = tickets.filter(t => !t.isCheckedIn);
