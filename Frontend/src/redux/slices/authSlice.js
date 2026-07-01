@@ -16,6 +16,18 @@ export const registerUser = createAsyncThunk(
   }
 );
 
+export const sendOTP = createAsyncThunk(
+  'auth/sendOTP',
+  async (emailData, { rejectWithValue }) => {
+    try {
+      const response = await API.post('/auth/send-otp', emailData);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || 'Failed to send verification code');
+    }
+  }
+);
+
 export const loginUser = createAsyncThunk(
   'auth/login',
   async (credentials, { rejectWithValue }) => {

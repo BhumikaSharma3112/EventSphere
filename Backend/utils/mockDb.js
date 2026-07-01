@@ -292,6 +292,8 @@ const seedMockData = async () => {
 // Run Seeder
 seedMockData();
 
+let otps = [];
+
 module.exports = {
   getUsers: () => users,
   setUsers: (u) => users = u,
@@ -308,5 +310,7 @@ module.exports = {
   getNotifications: () => notifications,
   setNotifications: (n) => notifications = n,
   getReports: () => reports,
-  setReports: (rep) => reports = rep
+  setReports: (rep) => reports = rep,
+  getOtps: () => otps,
+  setOtps: (o) => otps = o
 };

@@ -4,6 +4,8 @@ const User = require('../models/User');
 const { getFallbackMode } = require('../config/db');
 const mockDb = require('../utils/mockDb');
 const { uploadToCloudinary } = require('../utils/cloudinary');
+const OTP = require('../models/OTP');
+const { sendEmail } = require('../services/emailService');
 
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET || 'eventsphere_secret_key_12345', {
@@ -12,9 +14,36 @@ const signToken = (id) => {
 };
 
 const register = async (req, res) => {
-  const { name, email, password, role } = req.body;
+  const { name, email, password, role, otp } = req.body;
   
+  if (!otp) {
+    return res.status(400).json({ success: false, message: 'Verification code is required.' });
+  }
+
   try {
+    // Validate OTP
+    if (getFallbackMode()) {
+      let otps = mockDb.getOtps();
+      const otpRecord = otps.find(
+        (o) => o.email === email.toLowerCase() && o.otp === otp && new Date(o.expiresAt) > Date.now()
+      );
+
+      if (!otpRecord) {
+        return res.status(400).json({ success: false, message: 'Invalid or expired verification code.' });
+      }
+
+      // Delete OTP
+      mockDb.setOtps(otps.filter((o) => o !== otpRecord));
+    } else {
+      const otpRecord = await OTP.findOne({ email: email.toLowerCase(), otp });
+      if (!otpRecord || otpRecord.expiresAt < Date.now()) {
+        return res.status(400).json({ success: false, message: 'Invalid or expired verification code.' });
+      }
+
+      // Delete OTP
+      await OTP.deleteOne({ _id: otpRecord._id });
+    }
+
     if (getFallbackMode()) {
       const users = mockDb.getUsers();
       if (users.find(u => u.email === email.toLowerCase())) {
@@ -223,4 +252,73 @@ const updateProfile = async (req, res) => {
   }
 };
 
-module.exports = { register, login, getMe, updateProfile };
+const sendOTP = async (req, res) => {
+  const { email } = req.body;
+  
+  if (!email) {
+    return res.status(400).json({ success: false, message: 'Email address is required.' });
+  }
+
+  try {
+    // Check if user already exists
+    if (getFallbackMode()) {
+      const users = mockDb.getUsers();
+      if (users.find(u => u.email === email.toLowerCase())) {
+        return res.status(400).json({ success: false, message: 'Email is already registered.' });
+      }
+    } else {
+      const existingUser = await User.findOne({ email: email.toLowerCase() });
+      if (existingUser) {
+        return res.status(400).json({ success: false, message: 'Email is already registered.' });
+      }
+    }
+
+    // Generate a 6-digit random number
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    const expiresAt = new Date(Date.now() + 5 * 60 * 1000); // 5 minutes TTL
+
+    // Save OTP
+    if (getFallbackMode()) {
+      let otps = mockDb.getOtps();
+      // Remove any existing OTP for this email
+      otps = otps.filter(o => o.email !== email.toLowerCase());
+      otps.push({ email: email.toLowerCase(), otp, expiresAt });
+      mockDb.setOtps(otps);
+    } else {
+      await OTP.findOneAndDelete({ email: email.toLowerCase() });
+      await OTP.create({ email: email.toLowerCase(), otp, expiresAt });
+    }
+
+    // Send Email via Brevo
+    const emailHtml = `
+      <div style="font-family: 'Poppins', sans-serif; max-width: 500px; margin: auto; padding: 30px; border: 1px solid #E5D3B3; border-radius: 20px; background-color: #FCFAF6; color: #231C1A;">
+        <div style="text-align: center; margin-bottom: 25px;">
+          <h2 style="font-family: 'Playfair Display', serif; letter-spacing: 2px; color: #C5A880; margin: 0;">EVENTSPHERE</h2>
+          <span style="font-size: 9px; letter-spacing: 1px; color: #6E635D; text-transform: uppercase;">Premium Gatherings</span>
+        </div>
+        <p style="font-size: 13px; line-height: 1.6; color: #231C1A;">Hello,</p>
+        <p style="font-size: 13px; line-height: 1.6; color: #231C1A;">Thank you for registering with EventSphere. To verify your email address, please use the following One-Time Password (OTP):</p>
+        <div style="text-align: center; margin: 30px 0;">
+          <span style="font-size: 26px; font-weight: bold; letter-spacing: 5px; color: #C5A880; padding: 10px 25px; border: 1px dashed #C5A880; border-radius: 12px; background-color: #FFF;">${otp}</span>
+        </div>
+        <p style="font-size: 11px; color: #6E635D; line-height: 1.6; text-align: center; margin-top: 25px;">
+          This OTP is valid for 5 minutes. If you did not request this, please ignore this email.
+        </p>
+      </div>
+    `;
+
+    await sendEmail({
+      to: email,
+      subject: 'Verify your EventSphere Credentials',
+      text: `Your EventSphere verification OTP is: ${otp}`,
+      html: emailHtml
+    });
+
+    res.json({ success: true, message: 'Verification code sent to your email.' });
+  } catch (error) {
+    console.error('Send OTP Error:', error);
+    res.status(500).json({ success: false, message: 'Failed to send verification code.' });
+  }
+};
+
+module.exports = { register, login, getMe, updateProfile, sendOTP };
