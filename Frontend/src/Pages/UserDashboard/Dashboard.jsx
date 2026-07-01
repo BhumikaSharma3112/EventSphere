@@ -55,7 +55,7 @@ const Dashboard = () => {
       </div>
 
       {/* Stats row */}
-      <div className="grid grid-cols-3 gap-6 mb-8 text-left">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8 text-left">
         <div className="bg-white border border-[#E5D3B3]/35 rounded-3xl p-5 shadow-luxury">
           <Ticket className="h-5 w-5 text-luxury-gold mb-2" />
           <span className="text-[9px] uppercase tracking-widest text-luxury-muted block">Active Passes</span>
