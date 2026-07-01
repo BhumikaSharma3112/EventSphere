@@ -3,6 +3,7 @@ const Category = require('../models/Category');
 const User = require('../models/User');
 const { getFallbackMode } = require('../config/db');
 const mockDb = require('../utils/mockDb');
+const { uploadToCloudinary } = require('../utils/cloudinary');
 
 // Get all events with filtering, search, sorting
 const getEvents = async (req, res) => {
@@ -160,10 +161,11 @@ const createEvent = async (req, res) => {
 
     if (req.files) {
       if (req.files.bannerImage && req.files.bannerImage[0]) {
-        bannerImage = `/uploads/${req.files.bannerImage[0].filename}`;
+        bannerImage = await uploadToCloudinary(req.files.bannerImage[0].path);
       }
       if (req.files.galleryImages) {
-        galleryImages = req.files.galleryImages.map(file => `/uploads/${file.filename}`);
+        const uploadPromises = req.files.galleryImages.map(file => uploadToCloudinary(file.path));
+        galleryImages = await Promise.all(uploadPromises);
       }
     }
 
@@ -246,10 +248,11 @@ const updateEvent = async (req, res) => {
 
       if (req.files) {
         if (req.files.bannerImage && req.files.bannerImage[0]) {
-          bannerImage = `/uploads/${req.files.bannerImage[0].filename}`;
+          bannerImage = await uploadToCloudinary(req.files.bannerImage[0].path);
         }
         if (req.files.galleryImages) {
-          galleryImages = req.files.galleryImages.map(file => `/uploads/${file.filename}`);
+          const uploadPromises = req.files.galleryImages.map(file => uploadToCloudinary(file.path));
+          galleryImages = await Promise.all(uploadPromises);
         }
       }
 
@@ -290,10 +293,11 @@ const updateEvent = async (req, res) => {
 
     if (req.files) {
       if (req.files.bannerImage && req.files.bannerImage[0]) {
-        updates.bannerImage = `/uploads/${req.files.bannerImage[0].filename}`;
+        updates.bannerImage = await uploadToCloudinary(req.files.bannerImage[0].path);
       }
       if (req.files.galleryImages) {
-        updates.galleryImages = req.files.galleryImages.map(file => `/uploads/${file.filename}`);
+        const uploadPromises = req.files.galleryImages.map(file => uploadToCloudinary(file.path));
+        updates.galleryImages = await Promise.all(uploadPromises);
       }
     }
 
@@ -371,7 +375,7 @@ const createCategory = async (req, res) => {
   try {
     let image = 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=400';
     if (req.file) {
-      image = `/uploads/${req.file.filename}`;
+      image = await uploadToCloudinary(req.file.path);
     }
 
     if (getFallbackMode()) {

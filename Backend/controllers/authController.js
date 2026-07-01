@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const { getFallbackMode } = require('../config/db');
 const mockDb = require('../utils/mockDb');
+const { uploadToCloudinary } = require('../utils/cloudinary');
 
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET || 'eventsphere_secret_key_12345', {
@@ -203,7 +204,7 @@ const updateProfile = async (req, res) => {
           twitter: twitter || (users[userIndex].socials && users[userIndex].socials.twitter),
           website: website || (users[userIndex].socials && users[userIndex].socials.website)
         },
-        profilePicture: req.file ? `/uploads/${req.file.filename}` : users[userIndex].profilePicture,
+        profilePicture: req.file ? await uploadToCloudinary(req.file.path) : users[userIndex].profilePicture,
         updatedAt: new Date()
       };
       
@@ -212,7 +213,7 @@ const updateProfile = async (req, res) => {
     }
 
     if (req.file) {
-      updates.profilePicture = `/uploads/${req.file.filename}`;
+      updates.profilePicture = await uploadToCloudinary(req.file.path);
     }
 
     const user = await User.findByIdAndUpdate(req.user.id, updates, { new: true });
