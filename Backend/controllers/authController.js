@@ -289,6 +289,8 @@ const sendOTP = async (req, res) => {
       await OTP.create({ email: email.toLowerCase(), otp, expiresAt });
     }
 
+    console.log(`\n🔑 [OTP LOG] Generated 6-digit OTP code for ${email}: ${otp}\n`);
+
     // Send Email via Brevo
     const emailHtml = `
       <div style="font-family: 'Poppins', sans-serif; max-width: 500px; margin: auto; padding: 30px; border: 1px solid #E5D3B3; border-radius: 20px; background-color: #FCFAF6; color: #231C1A;">
