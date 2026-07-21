@@ -38,7 +38,7 @@ const sendEmail = async (options) => {
   if (checkSMTPConfigured()) {
     try {
       const transporter = getTransporter();
-      const senderEmail = process.env.SMTP_SENDER || process.env.SMTP_USER;
+      const senderEmail = process.env.BREVO_FROM_EMAIL || process.env.SMTP_SENDER || process.env.SMTP_USER;
       const mailOptions = {
         from: `"EventSphere" <${senderEmail}>`,
         to: options.to,
