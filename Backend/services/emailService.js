@@ -2,7 +2,7 @@ const nodemailer = require('nodemailer');
 const { getFallbackMode } = require('../config/db');
 
 const checkSMTPConfigured = () => {
-  const isMock = process.env.FORCE_MOCK === 'true' || getFallbackMode();
+  const isMock = process.env.FORCE_MOCK === 'true';
   const hasEnv = !!(process.env.SMTP_HOST && process.env.SMTP_PORT && process.env.SMTP_USER && process.env.SMTP_PASS);
   return !isMock && hasEnv;
 };
