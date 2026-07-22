@@ -31,7 +31,17 @@ const CreateEvent = () => {
     const fetchCats = async () => {
       try {
         const res = await API.get('/events/categories');
-        setCategories(res.data.categories || []);
+        if (res.data.categories && res.data.categories.length > 0) {
+          setCategories(res.data.categories);
+        } else {
+          setCategories([
+            { name: 'Galas & Soirées' },
+            { name: 'Art & Exhibitions' },
+            { name: 'Haute Couture' },
+            { name: 'Wellness Retreats' },
+            { name: 'Classical Concerts' }
+          ]);
+        }
       } catch (err) {
         setCategories([
           { name: 'Galas & Soirées' },
@@ -109,7 +119,7 @@ const CreateEvent = () => {
         </p>
       </div>
 
-      <div className="bg-white border border-[#E5D3B3]/45 rounded-3xl p-8 shadow-luxury max-w-2xl text-left">
+      <div className="bg-white border border-[#E5D3B3]/45 rounded-3xl p-5 sm:p-8 shadow-luxury max-w-2xl text-left">
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
           
           {/* Title */}
@@ -158,7 +168,7 @@ const CreateEvent = () => {
           </div>
 
           {/* Date & Time */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="flex flex-col">
               <label className="text-[9px] tracking-widest uppercase font-semibold text-luxury-gold mb-1.5 pl-1">Event Date</label>
               <input
@@ -182,7 +192,7 @@ const CreateEvent = () => {
           </div>
 
           {/* Location & City */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="flex flex-col">
               <label className="text-[9px] tracking-widest uppercase font-semibold text-luxury-gold mb-1.5 pl-1">Venue Address</label>
               <input
@@ -208,7 +218,7 @@ const CreateEvent = () => {
           </div>
 
           {/* Capacity & Price */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="flex flex-col">
               <label className="text-[9px] tracking-widest uppercase font-semibold text-luxury-gold mb-1.5 pl-1">Maximum Capacity</label>
               <input
