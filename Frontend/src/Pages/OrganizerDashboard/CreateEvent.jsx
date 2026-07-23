@@ -20,6 +20,11 @@ const CreateEvent = () => {
   const [price, setPrice] = useState(0);
   const [tags, setTags] = useState('');
   
+  const todayStr = new Date().toISOString().split('T')[0];
+  const maxDate = new Date();
+  maxDate.setFullYear(maxDate.getFullYear() + 5);
+  const maxDateStr = maxDate.toISOString().split('T')[0];
+
   const [bannerImage, setBannerImage] = useState(null);
   const [galleryImages, setGalleryImages] = useState([]);
 
@@ -61,22 +66,93 @@ const CreateEvent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Title Validation
+    if (title.trim().length < 5 || title.trim().length > 60) {
+      setToastType('error');
+      setToastMsg('Event title must be between 5 and 60 characters.');
+      return;
+    }
+
+    // Description Validation
+    if (description.trim().length < 20) {
+      setToastType('error');
+      setToastMsg('Please write a detailed event description (minimum 20 characters).');
+      return;
+    }
+
+    // Category Validation
     if (!category) {
       setToastType('error');
       setToastMsg('Please choose a curation category.');
       return;
     }
 
+    // Date Validation
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const eventDate = new Date(date);
+    if (!date || isNaN(eventDate.getTime())) {
+      setToastType('error');
+      setToastMsg('Please choose a valid event date.');
+      return;
+    }
+    if (eventDate < today) {
+      setToastType('error');
+      setToastMsg('Event date must be in the future.');
+      return;
+    }
+    if (eventDate.getFullYear() > today.getFullYear() + 5) {
+      setToastType('error');
+      setToastMsg('Event date must be within the next 5 years.');
+      return;
+    }
+
+    // Time Validation
+    if (!time || !/^\d{2}:\d{2}$/.test(time)) {
+      setToastType('error');
+      setToastMsg('Please select a valid start time.');
+      return;
+    }
+
+    // Venue Address Validation
+    if (location.trim().length < 5) {
+      setToastType('error');
+      setToastMsg('Venue address must be at least 5 characters.');
+      return;
+    }
+
+    // City Validation
+    if (!/^[a-zA-Z\s]{3,30}$/.test(city.trim())) {
+      setToastType('error');
+      setToastMsg('City name must contain only letters (3 to 30 characters).');
+      return;
+    }
+
+    // Capacity Validation
     if (capacity < 1 || capacity > 100000) {
       setToastType('error');
       setToastMsg('Event capacity must be between 1 and 100,000.');
       return;
     }
 
+    // Price Validation
     if (price < 0 || price > 1000000) {
       setToastType('error');
       setToastMsg('Admission price must be between ₹0 and ₹10,00,000.');
       return;
+    }
+
+    // Tags Validation
+    if (tags.trim()) {
+      const tagList = tags.split(',').map(t => t.trim());
+      for (const t of tagList) {
+        if (t && !/^[a-zA-Z0-9\s-]{2,20}$/.test(t)) {
+          setToastType('error');
+          setToastMsg('Each tag must be a valid word or phrase (2 to 20 alphanumeric characters).');
+          return;
+        }
+      }
     }
 
     setLoading(true);
@@ -189,6 +265,8 @@ const CreateEvent = () => {
               <label className="text-[9px] tracking-widest uppercase font-semibold text-luxury-gold mb-1.5 pl-1">Event Date</label>
               <input
                 type="date"
+                min={todayStr}
+                max={maxDateStr}
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
                 className="bg-luxury-cream border border-[#E5D3B3]/40 rounded-xl px-4 py-3 text-xs text-luxury-dark focus:outline-none"
@@ -226,7 +304,10 @@ const CreateEvent = () => {
                 type="text"
                 placeholder="Mumbai"
                 value={city}
-                onChange={(e) => setCity(e.target.value)}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  if (val.length <= 30) setCity(val);
+                }}
                 className="bg-luxury-cream border border-[#E5D3B3]/40 rounded-xl px-4 py-3 text-xs text-luxury-dark focus:outline-none"
                 required
               />
@@ -244,7 +325,11 @@ const CreateEvent = () => {
                 value={capacity}
                 onChange={(e) => {
                   const val = parseInt(e.target.value);
-                  setCapacity(isNaN(val) ? 0 : val);
+                  if (isNaN(val)) {
+                    setCapacity('');
+                  } else if (val <= 100000) {
+                    setCapacity(val);
+                  }
                 }}
                 className="bg-luxury-cream border border-[#E5D3B3]/40 rounded-xl px-4 py-3 text-xs text-luxury-dark focus:outline-none"
                 required
@@ -260,7 +345,11 @@ const CreateEvent = () => {
                 value={price}
                 onChange={(e) => {
                   const val = parseFloat(e.target.value);
-                  setPrice(isNaN(val) ? 0 : val);
+                  if (isNaN(val)) {
+                    setPrice('');
+                  } else if (val <= 1000000) {
+                    setPrice(val);
+                  }
                 }}
                 className="bg-luxury-cream border border-[#E5D3B3]/40 rounded-xl px-4 py-3 text-xs text-luxury-dark focus:outline-none"
                 required
@@ -277,7 +366,10 @@ const CreateEvent = () => {
                 type="text"
                 placeholder="gala, luxury, auction..."
                 value={tags}
-                onChange={(e) => setTags(e.target.value)}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  if (val.length <= 100) setTags(val);
+                }}
                 className="w-full bg-transparent border-none text-xs focus:outline-none text-luxury-dark"
               />
             </div>
