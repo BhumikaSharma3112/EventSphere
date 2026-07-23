@@ -42,6 +42,7 @@ const DashboardLayout = ({ children }) => {
         { label: 'Overview', path: '/organizer', icon: BarChart3 },
         { label: 'Create Event', path: '/organizer/create', icon: PlusCircle },
         { label: 'My Events', path: '/organizer/events', icon: Calendar },
+        { label: 'My Tickets', path: '/dashboard/tickets', icon: Ticket },
         { label: 'Reviews', path: '/organizer/reviews', icon: Star },
         { label: 'Settings', path: '/organizer/settings', icon: Settings }
       ];
