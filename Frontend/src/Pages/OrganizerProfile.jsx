@@ -29,16 +29,16 @@ const OrganizerProfile = () => {
         const userRes = await API.get(`/auth/me`); // placeholder/mock or details
         // To be safe, let's set mock organizer info if details are not populated
         const mockOrg = {
-          name: 'Aurelia Gold',
+          name: 'Bhumika Sharma',
           profilePicture: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=200',
           bio: 'Curating the world\'s most exclusive lifestyle, art, and wellness gatherings.',
           isVerifiedOrganizer: true,
           verificationDocuments: {
-            businessName: 'Maison d\'Or Events'
+            businessName: 'Royal Jaipur Events'
           },
           socials: {
-            instagram: '@maisondor_events',
-            website: 'maisondor.events'
+            instagram: '@bhumika_events',
+            website: 'eventsphere.com'
           }
         };
         setOrganizer(mockOrg);

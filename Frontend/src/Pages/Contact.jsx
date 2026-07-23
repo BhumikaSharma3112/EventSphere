@@ -50,7 +50,7 @@ const Contact = () => {
         <section className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
           {/* Info Details */}
           <div className="flex flex-col justify-center">
-            <h2 className="font-display font-semibold text-xl text-luxury-dark mb-6">Maison EventSphere</h2>
+            <h2 className="font-display font-semibold text-xl text-luxury-dark mb-6">Bhumika's EventSphere</h2>
             <p className="text-xs leading-relaxed text-luxury-muted mb-8 font-sans">
               For immediate questions regarding corporate bookings or private art gallery reservations, reach out using the coordinates below.
             </p>
@@ -81,7 +81,7 @@ const Contact = () => {
                   <MapPin className="h-4.5 w-4.5" />
                 </div>
                 <div>
-                  <span className="text-[9px] uppercase tracking-widest text-luxury-gold block mb-0.5">Maison Address</span>
+                  <span className="text-[9px] uppercase tracking-widest text-luxury-gold block mb-0.5">Business Address</span>
                   <span className="text-luxury-dark">Johri Bazar, Jaipur City, Rajasthan - 302003</span>
                 </div>
               </div>

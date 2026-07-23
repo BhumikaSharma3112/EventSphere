@@ -136,12 +136,12 @@ const Settings = () => {
 
           {/* Business Name */}
           <div className="flex flex-col">
-            <label className="text-[9px] tracking-widest uppercase font-semibold text-luxury-gold mb-1.5 pl-1">Maison / Business Name</label>
+            <label className="text-[9px] tracking-widest uppercase font-semibold text-luxury-gold mb-1.5 pl-1">Business Name</label>
             <div className="flex items-center gap-2 bg-luxury-cream border border-[#E5D3B3]/40 rounded-xl px-3.5 py-3">
               <Building className="h-4.5 w-4.5 text-luxury-gold shrink-0" />
               <input
                 type="text"
-                placeholder="Maison d'Or Events"
+                placeholder="Royal Jaipur Events"
                 value={businessName}
                 onChange={(e) => setBusinessName(e.target.value)}
                 className="w-full bg-transparent border-none text-xs focus:outline-none text-luxury-dark font-medium"
@@ -191,7 +191,7 @@ const Settings = () => {
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4.5 w-4.5 text-luxury-gold shrink-0"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
               <input
                 type="text"
-                placeholder="@maisondor"
+                placeholder="@bhumika_sharma"
                 value={instagram}
                 onChange={(e) => setInstagram(e.target.value)}
                 className="w-full bg-transparent border-none text-xs focus:outline-none text-luxury-dark font-medium"
@@ -206,7 +206,7 @@ const Settings = () => {
               <Globe className="h-4.5 w-4.5 text-luxury-gold shrink-0" />
               <input
                 type="text"
-                placeholder="maisondor.events"
+                placeholder="bhumikasharma.com"
                 value={website}
                 onChange={(e) => setWebsite(e.target.value)}
                 className="w-full bg-transparent border-none text-xs focus:outline-none text-luxury-dark font-medium"

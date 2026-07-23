@@ -263,7 +263,7 @@ const EventDetails = () => {
                 <div>
                   <div className="text-luxury-dark text-[13px]">Curated By</div>
                   <Link to={`/organizer/${currentEvent.organizer?._id}`} className="text-[11px] text-luxury-gold font-semibold hover:underline mt-0.5">
-                    {currentEvent.organizer?.name || 'Maison Host'}
+                    {currentEvent.organizer?.name || 'Event Host'}
                   </Link>
                 </div>
               </div>
