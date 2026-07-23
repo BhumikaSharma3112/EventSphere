@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import DashboardLayout from '../../layouts/DashboardLayout';
 import { SalesAreaChart } from '../../Components/Charts';
 import API from '../../services/api';
-import { Calendar, Users, DollarSign, Award, PlusCircle, CheckCircle } from 'lucide-react';
+import { Calendar, Users, IndianRupee, Award, PlusCircle, CheckCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
@@ -30,9 +30,9 @@ const Dashboard = () => {
         
         // Sum values
         const activeEventsCount = myEvents.length;
-        const totalCapacity = myEvents.reduce((sum, e) => sum + e.capacity, 0);
-        const ticketsSold = myEvents.reduce((sum, e) => sum + e.ticketsSold, 0);
-        const totalSales = myEvents.reduce((sum, e) => sum + (e.ticketsSold * e.price), 0);
+        const totalCapacity = myEvents.reduce((sum, e) => sum + Math.max(0, e.capacity || 0), 0);
+        const ticketsSold = myEvents.reduce((sum, e) => sum + Math.max(0, e.ticketsSold || 0), 0);
+        const totalSales = myEvents.reduce((sum, e) => sum + (Math.max(0, e.ticketsSold || 0) * Math.max(0, e.price || 0)), 0);
         
         setStats({
           totalSales,
@@ -41,15 +41,16 @@ const Dashboard = () => {
           ticketsSold
         });
 
-        // Set mock sales chart data based on sales
+        // Set mock sales chart data based on sales (clamped to prevent negative graphs)
+        const safeSales = Math.max(0, totalSales);
         setSalesData([
-          { date: 'Mon', sales: Math.round(totalSales * 0.1) },
-          { date: 'Tue', sales: Math.round(totalSales * 0.15) },
-          { date: 'Wed', sales: Math.round(totalSales * 0.12) },
-          { date: 'Thu', sales: Math.round(totalSales * 0.18) },
-          { date: 'Fri', sales: Math.round(totalSales * 0.22) },
-          { date: 'Sat', sales: Math.round(totalSales * 0.15) },
-          { date: 'Sun', sales: Math.round(totalSales * 0.08) }
+          { date: 'Mon', sales: Math.round(safeSales * 0.1) },
+          { date: 'Tue', sales: Math.round(safeSales * 0.15) },
+          { date: 'Wed', sales: Math.round(safeSales * 0.12) },
+          { date: 'Thu', sales: Math.round(safeSales * 0.18) },
+          { date: 'Fri', sales: Math.round(safeSales * 0.22) },
+          { date: 'Sat', sales: Math.round(safeSales * 0.15) },
+          { date: 'Sun', sales: Math.round(safeSales * 0.08) }
         ]);
 
         setLoading(false);
@@ -84,9 +85,9 @@ const Dashboard = () => {
       {/* Stats row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8 text-left">
         <div className="bg-white border border-[#E5D3B3]/35 rounded-3xl p-5 shadow-luxury">
-          <DollarSign className="h-5 w-5 text-luxury-gold mb-2" />
+          <IndianRupee className="h-5 w-5 text-luxury-gold mb-2" />
           <span className="text-[9px] uppercase tracking-widest text-luxury-muted block">Gross Sales</span>
-          <span className="font-display text-xl font-bold text-luxury-dark">₹{stats.totalSales}</span>
+          <span className="font-display text-xl font-bold text-luxury-dark">₹{Math.max(0, stats.totalSales)}</span>
         </div>
 
         <div className="bg-white border border-[#E5D3B3]/35 rounded-3xl p-5 shadow-luxury">

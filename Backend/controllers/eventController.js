@@ -170,6 +170,10 @@ const createEvent = async (req, res) => {
     }
 
     const parsedTags = Array.isArray(tags) ? tags : tags ? tags.split(',').map(t => t.trim()) : [];
+    
+    // Clamp values to prevent negative values
+    const finalPrice = Math.max(0, parseFloat(price) || 0);
+    const finalCapacity = Math.max(1, parseInt(capacity) || 100);
 
     if (getFallbackMode()) {
       const newEvent = {
@@ -183,8 +187,8 @@ const createEvent = async (req, res) => {
         locationType: locationType || 'venue',
         location,
         city: city || 'New York',
-        price: parseFloat(price) || 0,
-        capacity: parseInt(capacity) || 100,
+        price: finalPrice,
+        capacity: finalCapacity,
         ticketsSold: 0,
         tags: parsedTags,
         bannerImage,
@@ -212,8 +216,8 @@ const createEvent = async (req, res) => {
       locationType,
       location,
       city,
-      price: parseFloat(price) || 0,
-      capacity: parseInt(capacity),
+      price: finalPrice,
+      capacity: finalCapacity,
       tags: parsedTags,
       bannerImage,
       galleryImages,
@@ -267,8 +271,8 @@ const updateEvent = async (req, res) => {
         locationType: locationType || eventsList[eventIndex].locationType,
         location: location || eventsList[eventIndex].location,
         city: city || eventsList[eventIndex].city,
-        price: price !== undefined ? parseFloat(price) : eventsList[eventIndex].price,
-        capacity: capacity !== undefined ? parseInt(capacity) : eventsList[eventIndex].capacity,
+        price: price !== undefined ? Math.max(0, parseFloat(price) || 0) : eventsList[eventIndex].price,
+        capacity: capacity !== undefined ? Math.max(1, parseInt(capacity) || 1) : eventsList[eventIndex].capacity,
         tags: tags ? parsedTags : eventsList[eventIndex].tags,
         status: status || eventsList[eventIndex].status,
         bannerImage,
@@ -288,7 +292,19 @@ const updateEvent = async (req, res) => {
     }
 
     const updates = {
-      title, description, shortDescription, category, date, time, locationType, location, city, price, capacity, tags: parsedTags, status
+      title,
+      description,
+      shortDescription,
+      category,
+      date,
+      time,
+      locationType,
+      location,
+      city,
+      price: price !== undefined ? Math.max(0, parseFloat(price) || 0) : undefined,
+      capacity: capacity !== undefined ? Math.max(1, parseInt(capacity) || 1) : undefined,
+      tags: parsedTags,
+      status
     };
 
     if (req.files) {

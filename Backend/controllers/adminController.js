@@ -17,8 +17,8 @@ const getAnalytics = async (req, res) => {
       const totalOrganizers = users.filter(u => u.role === 'organizer').length;
       const totalEvents = events.length;
       
-      // Sum total sales in registrations
-      const totalRevenue = registrations.reduce((sum, reg) => sum + reg.totalPrice, 0);
+      // Sum total sales in registrations (clamped to prevent negative values)
+      const totalRevenue = registrations.reduce((sum, reg) => sum + Math.max(0, reg.totalPrice || 0), 0);
 
       // Distribution by category
       const categoryDistribution = {};

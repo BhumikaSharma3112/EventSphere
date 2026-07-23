@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import DashboardLayout from '../../layouts/DashboardLayout';
 import { SalesAreaChart, CategoryPieChart } from '../../Components/Charts';
 import API from '../../services/api';
-import { Users, DollarSign, Calendar, ShieldCheck, Heart } from 'lucide-react';
+import { Users, IndianRupee, Calendar, ShieldCheck, Heart } from 'lucide-react';
 
 const Dashboard = () => {
   const [stats, setStats] = useState({
@@ -44,9 +44,9 @@ const Dashboard = () => {
       {/* Stats Cards Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8 text-left">
         <div className="bg-white border border-[#E5D3B3]/35 rounded-3xl p-5 shadow-luxury">
-          <DollarSign className="h-5 w-5 text-luxury-gold mb-2" />
+          <IndianRupee className="h-5 w-5 text-luxury-gold mb-2" />
           <span className="text-[9px] uppercase tracking-widest text-luxury-muted block">Platform Revenue</span>
-          <span className="font-display text-xl font-bold text-luxury-dark">₹{stats.totalRevenue}</span>
+          <span className="font-display text-xl font-bold text-luxury-dark">₹{Math.max(0, stats.totalRevenue)}</span>
         </div>
 
         <div className="bg-white border border-[#E5D3B3]/35 rounded-3xl p-5 shadow-luxury">
