@@ -58,7 +58,7 @@ const Attendees = () => {
         
         {/* QR Scanner */}
         <div className="lg:col-span-1">
-          <QRScanner onScan={handleQRScan} />
+          <QRScanner onScan={handleQRScan} attendees={attendees} />
         </div>
 
         {/* Attendance Registry Table */}

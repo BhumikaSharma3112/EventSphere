@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Camera, Scan, Sparkles, Send } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
-const QRScanner = ({ onScan }) => {
+const QRScanner = ({ onScan, attendees }) => {
   const [code, setCode] = useState('');
   const [isScanning, setIsScanning] = useState(false);
 
@@ -17,6 +17,10 @@ const QRScanner = ({ onScan }) => {
     setIsScanning(true);
     setTimeout(() => {
       setIsScanning(false);
+      // Look up first pending attendee to simulate a real check-in scan
+      const firstPending = attendees && attendees.find(a => !a.isCheckedIn);
+      const codeToScan = code.trim() || (firstPending ? firstPending.ticketCode : 'mock_ticket_code_simulated');
+
       // Fire confetti and scan
       confetti({
         particleCount: 80,
@@ -24,8 +28,8 @@ const QRScanner = ({ onScan }) => {
         origin: { y: 0.6 },
         colors: ['#D4AF37', '#FFF0F1', '#FAF6EE']
       });
-      // Scan the typed code or a mock code if empty
-      onScan(code.trim() || 'mock_ticket_code_simulated');
+      // Scan the ticket code
+      onScan(codeToScan);
     }, 2000);
   };
 
