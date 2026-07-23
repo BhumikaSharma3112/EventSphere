@@ -13,14 +13,28 @@ const FilterSidebar = ({ isOpen, onClose, onApply, currentFilters }) => {
     const loadCats = async () => {
       try {
         const res = await API.get('/events/categories');
-        setCategories(res.data.categories || []);
+        if (res.data.categories && res.data.categories.length > 0) {
+          setCategories(res.data.categories);
+        } else {
+          setCategories([
+            { name: 'Heritage Art & Exhibitions' },
+            { name: 'Masterclasses & Seminars' },
+            { name: 'Elite Networking & Soirées' },
+            { name: 'Seva & Community Outreach' },
+            { name: 'Festivals & Cultural Galas' },
+            { name: 'Yoga & Ayurvedic Retreats' },
+            { name: 'Classical & Bollywood Concerts' }
+          ]);
+        }
       } catch (e) {
         setCategories([
-          { name: 'Galas & Soirées' },
-          { name: 'Art & Exhibitions' },
-          { name: 'Haute Couture' },
-          { name: 'Wellness Retreats' },
-          { name: 'Classical Concerts' }
+          { name: 'Heritage Art & Exhibitions' },
+          { name: 'Masterclasses & Seminars' },
+          { name: 'Elite Networking & Soirées' },
+          { name: 'Seva & Community Outreach' },
+          { name: 'Festivals & Cultural Galas' },
+          { name: 'Yoga & Ayurvedic Retreats' },
+          { name: 'Classical & Bollywood Concerts' }
         ]);
       }
     };

@@ -75,40 +75,53 @@ const seedMockData = async () => {
 
   users = [admin, organizer, attendee];
 
-  // Seed Categories
   categories = [
     {
-      _id: 'cat_gala',
-      name: 'Galas & Soirées',
-      description: 'Elegant black-tie banquets, red carpets, and charity balls.',
-      image: 'https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&q=80&w=600',
-      icon: 'Sparkles'
-    },
-    {
       _id: 'cat_art',
-      name: 'Art & Exhibitions',
-      description: 'Private viewings, modern gallery openings, and fine art collections.',
+      name: 'Heritage Art & Exhibitions',
+      description: 'Private viewings, modern gallery openings, and royal Indian fine art showcases.',
       image: 'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&q=80&w=600',
       icon: 'Palette'
     },
     {
-      _id: 'cat_fashion',
-      name: 'Haute Couture',
-      description: 'Exclusive runway shows, fashion previews, and designer showcases.',
-      image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=600',
-      icon: 'Scissors'
+      _id: 'cat_workshops',
+      name: 'Masterclasses & Seminars',
+      description: 'Handloom crafts workshops, culinary arts lessons, and corporate leadership talks.',
+      image: 'https://images.unsplash.com/photo-1544535830-9dff9e0d4dba?auto=format&fit=crop&q=80&w=600',
+      icon: 'Award'
+    },
+    {
+      _id: 'cat_networking',
+      name: 'Elite Networking & Soirées',
+      description: 'High-profile business summits, private investor circles, and startup funding mixers.',
+      image: 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&q=80&w=600',
+      icon: 'Briefcase'
+    },
+    {
+      _id: 'cat_volunteer',
+      name: 'Seva & Community Outreach',
+      description: 'Social impact programs, temple cleanup drives, and community helper volunteering.',
+      image: 'https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&q=80&w=600',
+      icon: 'HeartHandshake'
+    },
+    {
+      _id: 'cat_festivals',
+      name: 'Festivals & Cultural Galas',
+      description: 'Navratri Utsav, Diwali melas, sangeet events, and traditional dance productions.',
+      image: 'https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&q=80&w=600',
+      icon: 'Sparkles'
     },
     {
       _id: 'cat_wellness',
-      name: 'Wellness Retreats',
-      description: 'Mindfulness sanctuaries, luxury spa escapes, and healing retreats.',
+      name: 'Yoga & Ayurvedic Retreats',
+      description: 'Mindfulness sanctuaries in Rishikesh, wellness spa escapes, and healing retreats in Kerala.',
       image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=600',
       icon: 'Heart'
     },
     {
       _id: 'cat_concerts',
-      name: 'Classical Concerts',
-      description: 'Orchestral performances, intimate piano recitals, and jazz nights.',
+      name: 'Classical & Sufi Concerts',
+      description: 'Sitar recitals, Sufi qawwali nights, and live Bollywood musical performances.',
       image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=600',
       icon: 'Music'
     }
@@ -118,15 +131,15 @@ const seedMockData = async () => {
   events = [
     {
       _id: 'event_gala_1',
-      title: 'The Grand Rose Gold Soirée',
-      description: 'Step into an evening of sheer luxury. Join us for a night of live classical jazz, fine dining curated by Michelin-star chefs, and a silent auction. Dress code is strictly black-tie with a touch of rose gold and blush pink. Access includes vintage champagne reception, gourmet five-course banquet, and exclusive gift bags from our luxury brand partners.',
-      shortDescription: 'An exclusive black-tie gala evening featuring Michelin-star dining and a live jazz orchestra.',
-      category: 'Galas & Soirées',
+      title: 'The Royal Diwali Soirée',
+      description: 'Step into an evening of sheer luxury and light. Join us for a night of live Sufi musical ensembles, fine gourmet Indian dining curated by Michelin-star master chefs, and a premium auction. Dress code is strictly traditional wear with royal accents. Access includes welcome sherbet, a gourmet seven-course banquet, and exclusive gift bags from local luxury design partners.',
+      shortDescription: 'An exclusive Diwali gala evening featuring Michelin-star dining and a live Sufi musical ensemble.',
+      category: 'Festivals & Cultural Galas',
       date: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000), // 15 days in future
       time: '19:30',
       locationType: 'venue',
-      location: 'The Ritz-Carlton Grand Ballroom, Manhattan',
-      city: 'New York',
+      location: 'The Taj Mahal Palace, Ballroom',
+      city: 'Mumbai',
       organizer: 'mock_user_organizer_id',
       bannerImage: 'https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&q=80&w=1200',
       galleryImages: [
@@ -137,7 +150,7 @@ const seedMockData = async () => {
       price: 250,
       capacity: 150,
       ticketsSold: 42,
-      tags: ['Luxury', 'Gala', 'Exclusive', 'Soiree'],
+      tags: ['Luxury', 'Festivals', 'Diwali', 'Soiree'],
       status: 'published',
       isFeatured: true,
       isTrending: true,
@@ -146,15 +159,15 @@ const seedMockData = async () => {
     },
     {
       _id: 'event_art_1',
-      title: 'Aetheria: Fine Art Exposition',
-      description: 'Explore the ethereal limits of modern sculpture and canvas. Aetheria gathers works from leading contemporary European sculptors and painters, focusing on neutral color tones, glass, and gold textures. Welcome cocktail served on arrival. Includes a private tour with the curator and artists.',
-      shortDescription: 'Private gallery viewing showcasing modern fine art collections with artist talks.',
-      category: 'Art & Exhibitions',
+      title: 'Heritage Canvas: Fine Art Exposition',
+      description: 'Explore the ethereal limits of Indian modern art and heritage paintings. This exposition gathers works from leading contemporary Indian painters and sculptors, focusing on rich canvas textures, woodcarving structures, and gold-leaf details. High tea served on arrival. Includes a private tour with the curator.',
+      shortDescription: 'Private gallery viewing showcasing modern Indian fine art collections with artist walkthroughs.',
+      category: 'Heritage Art & Exhibitions',
       date: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000), // 5 days in future
       time: '18:00',
       locationType: 'venue',
-      location: 'Maison d\'Or Modern Gallery, Chelsea',
-      city: 'New York',
+      location: 'National Gallery of Modern Art, New Delhi',
+      city: 'Delhi NCR',
       organizer: 'mock_user_organizer_id',
       bannerImage: 'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&q=80&w=1200',
       galleryImages: [
@@ -164,7 +177,7 @@ const seedMockData = async () => {
       price: 85,
       capacity: 80,
       ticketsSold: 28,
-      tags: ['Art', 'Exhibition', 'Culture', 'Chelsea'],
+      tags: ['Art', 'Exhibition', 'Heritage', 'Culture'],
       status: 'published',
       isFeatured: false,
       isTrending: true,
@@ -173,15 +186,15 @@ const seedMockData = async () => {
     },
     {
       _id: 'event_fashion_1',
-      title: 'Milano Runway: Autumn Couture',
-      description: 'Experience an exclusive preview of the Autumn/Winter Couture collection. This intimate salon show exhibits bespoke tailoring and delicate fabrics with live string quartets playing. Followed by a trunk show where you can pre-order custom fits directly from designers.',
-      shortDescription: 'Exclusive high-fashion runway preview and luxury designer trunk show.',
-      category: 'Haute Couture',
+      title: 'Handloom Couture Masterclass',
+      description: 'Experience an exclusive preview and masterclass on Indian handloom weaves. This intimate show exhibits bespoke sarees, silk embroidery, and delicate textiles, with live classical instrumental music playing. Followed by a Q&A session where you can learn about weaving history directly from artisans and designers.',
+      shortDescription: 'Exclusive handloom couture masterclass and luxury designer trunk show.',
+      category: 'Masterclasses & Seminars',
       date: new Date(Date.now() + 25 * 24 * 60 * 60 * 1000), // 25 days in future
       time: '20:00',
       locationType: 'venue',
-      location: 'The Ivory Pavilion, Beverly Hills',
-      city: 'Los Angeles',
+      location: 'The Leela Palace, Garden Pavilion',
+      city: 'Bengaluru',
       organizer: 'mock_user_organizer_id',
       bannerImage: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=1200',
       galleryImages: [
@@ -191,7 +204,7 @@ const seedMockData = async () => {
       price: 450,
       capacity: 60,
       ticketsSold: 12,
-      tags: ['Fashion', 'Runway', 'Milano', 'Luxury'],
+      tags: ['Fashion', 'Masterclass', 'Handloom', 'Luxury'],
       status: 'published',
       isFeatured: true,
       isTrending: false,
@@ -200,15 +213,15 @@ const seedMockData = async () => {
     },
     {
       _id: 'event_wellness_1',
-      title: 'Sanctuary: Luxury Wellness Retreat',
-      description: 'Reclaim your inner balance in a tranquil landscape of organic luxury. Featuring restorative sound bath meditations, expert-led hot stone yoga sessions, organic gourmet spa dining, and custom aromatherapy. Set in the quiet hills with breathtaking sunset views.',
-      shortDescription: 'A day-long luxury wellness experience with sound healing, yoga, and organic dining.',
-      category: 'Wellness Retreats',
+      title: 'Dhyana: Luxury Yoga & Ayurveda Retreat',
+      description: 'Reclaim your inner balance in a tranquil landscape of organic luxury. Featuring restorative sound healing, expert-led yoga sessions, organic gourmet ayurvedic dining, and custom aromatherapy. Set in the quiet hills of Rishikesh with breathtaking Ganga views.',
+      shortDescription: 'A day-long luxury wellness experience with sound healing, yoga, and organic ayurvedic dining.',
+      category: 'Yoga & Ayurvedic Retreats',
       date: new Date(Date.now() + 8 * 24 * 60 * 60 * 1000), // 8 days in future
       time: '09:00',
       locationType: 'venue',
-      location: 'Aura Hills Sanctuary, Malibu',
-      city: 'Los Angeles',
+      location: 'Aura Ayurveda Sanctuary, Rishikesh',
+      city: 'Delhi NCR',
       organizer: 'mock_user_organizer_id',
       bannerImage: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=1200',
       galleryImages: [
@@ -218,7 +231,7 @@ const seedMockData = async () => {
       price: 150,
       capacity: 35,
       ticketsSold: 19,
-      tags: ['Wellness', 'Yoga', 'Mindfulness', 'Malibu'],
+      tags: ['Wellness', 'Yoga', 'Ayurveda', 'Retreat'],
       status: 'published',
       isFeatured: false,
       isTrending: true,
@@ -227,15 +240,15 @@ const seedMockData = async () => {
     },
     {
       _id: 'event_concert_1',
-      title: 'Symphony Under the Stars',
-      description: 'Join the Metropolitan Chamber Ensemble for an evening of Mozart, Chopin, and Vivaldi, performed under the summer starlight. Complimentary fine wines and artisanal cheese boards will be served to guests in their private cabanas.',
-      shortDescription: 'Chamber music ensemble performing classical pieces in an outdoor luxury pavilion.',
-      category: 'Classical Concerts',
+      title: 'Sufi Under the Stars',
+      description: 'Join elite Qawwali singers and Sufi vocalists for an evening of classical spiritual poetry and rhythmic music under the palace starlight. Complimentary fine mocktails and traditional Indian platter will be served to guests in their private royal pavilions.',
+      shortDescription: 'Traditional Sufi musicians performing classical pieces in an outdoor palace courtyard.',
+      category: 'Classical & Sufi Concerts',
       date: new Date(Date.now() + 18 * 24 * 60 * 60 * 1000), // 18 days in future
       time: '19:00',
       locationType: 'venue',
-      location: 'The Ivory Amphitheater, Napa Valley',
-      city: 'San Francisco',
+      location: 'Rambagh Palace Courtyard',
+      city: 'Jaipur',
       organizer: 'mock_user_organizer_id',
       bannerImage: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=1200',
       galleryImages: [
@@ -244,7 +257,7 @@ const seedMockData = async () => {
       price: 120,
       capacity: 100,
       ticketsSold: 56,
-      tags: ['Music', 'Classical', 'Symphony', 'Napa'],
+      tags: ['Music', 'Sufi', 'Concert', 'Jaipur'],
       status: 'published',
       isFeatured: false,
       isTrending: false,

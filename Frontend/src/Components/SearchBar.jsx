@@ -8,21 +8,35 @@ const SearchBar = ({ onSearch }) => {
   const [city, setCity] = useState('');
   const [categoriesList, setCategoriesList] = useState([]);
   
-  const popularCities = ['New York', 'Los Angeles', 'San Francisco', 'Chicago', 'Miami', 'Napa Valley'];
+  const popularCities = ['Mumbai', 'Delhi NCR', 'Bengaluru', 'Jaipur', 'Goa', 'Udaipur'];
 
   useEffect(() => {
     const fetchCats = async () => {
       try {
         const res = await API.get('/events/categories');
-        setCategoriesList(res.data.categories || []);
+        if (res.data.categories && res.data.categories.length > 0) {
+          setCategoriesList(res.data.categories);
+        } else {
+          setCategoriesList([
+            { name: 'Heritage Art & Exhibitions' },
+            { name: 'Masterclasses & Seminars' },
+            { name: 'Elite Networking & Soirées' },
+            { name: 'Seva & Community Outreach' },
+            { name: 'Festivals & Cultural Galas' },
+            { name: 'Yoga & Ayurvedic Retreats' },
+            { name: 'Classical & Bollywood Concerts' }
+          ]);
+        }
       } catch (err) {
         // Fallback categories list if request fails
         setCategoriesList([
-          { name: 'Galas & Soirées' },
-          { name: 'Art & Exhibitions' },
-          { name: 'Haute Couture' },
-          { name: 'Wellness Retreats' },
-          { name: 'Classical Concerts' }
+          { name: 'Heritage Art & Exhibitions' },
+          { name: 'Masterclasses & Seminars' },
+          { name: 'Elite Networking & Soirées' },
+          { name: 'Seva & Community Outreach' },
+          { name: 'Festivals & Cultural Galas' },
+          { name: 'Yoga & Ayurvedic Retreats' },
+          { name: 'Classical & Bollywood Concerts' }
         ]);
       }
     };
