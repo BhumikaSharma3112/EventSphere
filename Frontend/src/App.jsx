@@ -76,7 +76,7 @@ const App = () => {
       <Route 
         path="/dashboard/tickets" 
         element={
-          <ProtectedRoute allowedRoles={['user']}>
+          <ProtectedRoute allowedRoles={['user', 'organizer']}>
             <MyTickets />
           </ProtectedRoute>
         } 
