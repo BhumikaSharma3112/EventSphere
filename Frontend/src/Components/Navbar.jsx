@@ -75,8 +75,8 @@ const Navbar = () => {
     <nav className="glass-panel sticky top-0 left-0 w-full z-50 border-b border-[#E5D3B3]/30 px-6 py-4 transition-all duration-300">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         
-        <Link to="/" className="flex items-center gap-2 group">
-          <img src="/logo.jpg" alt="EventSphere Logo" className="h-6 w-6 rounded-full border border-luxury-gold/30 object-cover transition-transform duration-500 group-hover:rotate-12" />
+        <Link to="/" className="flex items-center gap-2.5 group">
+          <img src="/logo.jpg" alt="EventSphere Logo" className="h-10 w-10 rounded-full border border-luxury-gold/30 object-cover transition-transform duration-500 group-hover:rotate-12" />
           <span className="font-display text-2xl tracking-[0.15em] font-semibold text-luxury-dark group-hover:text-luxury-gold transition-colors duration-300">
             EVENTSPHERE
           </span>
