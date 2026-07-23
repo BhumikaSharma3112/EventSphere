@@ -12,7 +12,7 @@ const Footer = () => {
         {/* Branding */}
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-2">
-            <Sparkles className="h-5 w-5 text-luxury-gold" />
+            <img src="/favicon.svg" alt="EventSphere Logo" className="h-5 w-5 object-contain" />
             <span className="font-display text-xl tracking-[0.15em] font-semibold">EVENTSPHERE</span>
           </div>
           <p className="text-xs leading-relaxed text-luxury-muted">

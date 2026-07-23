@@ -77,7 +77,7 @@ const Navbar = () => {
         
         {/* Elegant Logo */}
         <Link to="/" className="flex items-center gap-2 group">
-          <Sparkles className="h-5 w-5 text-luxury-gold transition-transform duration-500 group-hover:rotate-12" />
+          <img src="/favicon.svg" alt="EventSphere Logo" className="h-5.5 w-5.5 object-contain transition-transform duration-500 group-hover:rotate-12" />
           <span className="font-display text-2xl tracking-[0.15em] font-semibold text-luxury-dark group-hover:text-luxury-gold transition-colors duration-300">
             EVENTSPHERE
           </span>

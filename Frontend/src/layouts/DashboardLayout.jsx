@@ -67,7 +67,7 @@ const DashboardLayout = ({ children }) => {
       {/* Sidebar for Desktop */}
       <aside className="hidden md:flex flex-col w-64 bg-white border-r border-[#E5D3B3]/40 p-6 z-20 shrink-0 relative">
         <Link to="/" className="flex items-center gap-2 mb-10 group">
-          <Sparkles className="h-4.5 w-4.5 text-luxury-gold" />
+          <img src="/favicon.svg" alt="EventSphere Logo" className="h-5 w-5 object-contain" />
           <span className="font-display text-lg tracking-[0.15em] font-semibold">EVENTSPHERE</span>
         </Link>
 
@@ -112,7 +112,7 @@ const DashboardLayout = ({ children }) => {
       {/* Mobile Drawer Trigger Bar */}
       <div className="md:hidden fixed top-0 left-0 right-0 h-16 bg-white border-b border-[#E5D3B3]/20 flex items-center justify-between px-6 z-30 shadow-sm">
         <Link to="/" className="flex items-center gap-1.5">
-          <Sparkles className="h-4 w-4 text-luxury-gold" />
+          <img src="/favicon.svg" alt="EventSphere Logo" className="h-4.5 w-4.5 object-contain" />
           <span className="font-display text-sm tracking-[0.15em] font-semibold">EVENTSPHERE</span>
         </Link>
         <button
@@ -129,7 +129,7 @@ const DashboardLayout = ({ children }) => {
           <div className="fixed inset-0 bg-luxury-dark/30 backdrop-blur-xs" onClick={() => setIsSidebarOpen(false)} />
           <aside className="relative flex flex-col w-64 bg-white border-r border-[#E5D3B3]/40 p-6 h-full z-50 animate-slide-right">
             <Link to="/" className="flex items-center gap-2 mb-8">
-              <Sparkles className="h-4 w-4 text-luxury-gold" />
+              <img src="/favicon.svg" alt="EventSphere Logo" className="h-4.5 w-4.5 object-contain" />
               <span className="font-display text-base tracking-[0.15em] font-semibold">EVENTSPHERE</span>
             </Link>
 
