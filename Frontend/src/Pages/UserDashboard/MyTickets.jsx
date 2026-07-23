@@ -22,8 +22,24 @@ const MyTickets = () => {
   }, []);
 
   const handleDownload = async (ticketId) => {
-    const backendHost = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
-    window.open(`${backendHost}/api/tickets/download/${ticketId}`, '_blank');
+    try {
+      const response = await API.get(`/tickets/download/${ticketId}`, {
+        responseType: 'blob'
+      });
+      const blob = new Blob([response.data], { type: 'application/pdf' });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `EventSphere_Ticket_${ticketId}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error('Download failed', err);
+      const backendHost = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
+      window.open(`${backendHost}/api/tickets/download/${ticketId}`, '_blank');
+    }
   };
 
   return (
