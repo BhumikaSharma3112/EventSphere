@@ -30,18 +30,18 @@ const About = () => {
           <div className="aspect-[4/3] rounded-3xl overflow-hidden shadow-luxury border border-[#E5D3B3]/25 bg-luxury-beige">
             <img
               src="https://images.unsplash.com/photo-1469371670807-013ccf25f16a?auto=format&fit=crop&q=80&w=600"
-              alt="Luxury banquet"
+              alt="Jaipur Heritage Curation"
               className="w-full h-full object-cover"
             />
           </div>
 
           <div>
-            <h2 className="font-display font-semibold text-xl text-luxury-dark mb-4">A Taste of Sophistication</h2>
+            <h2 className="font-display font-semibold text-xl text-luxury-dark mb-4">Born in the Pink City</h2>
             <p className="text-xs leading-relaxed text-luxury-muted mb-4 font-sans font-medium">
-              EventSphere was founded on the idea that event attendance should be more than just scanning a ticket—it should be an introduction to a luxurious lifestyle experience.
+              EventSphere was founded by <strong>Bhumika Sharma</strong> in the heart of Jaipur, Rajasthan. Surrounded by royal heritage and a booming cultural scene, Bhumika recognized that finding and booking premium, vetted experiences—ranging from Sufi musical evenings in Jaipur courtyards to exclusive wellness retreats and handloom masterclasses—was complex and fragmented.
             </p>
             <p className="text-xs leading-relaxed text-luxury-muted font-sans font-medium">
-              We vet and verify every single curation partner on our system, ensuring black-tie dinner parties, fine arts exhibitions, high runway reviews, and boutique wellness sessions are handled with absolute premium care.
+              Starting as a local home-based business, Bhumika designed EventSphere to make premium curation accessible to everyone. Today, we vet and verify every curation partner to ensure that heritage art, luxury galas, and classical concerts are accessible with absolute premium care and security.
             </p>
           </div>
         </section>
