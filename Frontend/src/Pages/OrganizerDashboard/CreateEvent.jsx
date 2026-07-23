@@ -67,6 +67,18 @@ const CreateEvent = () => {
       return;
     }
 
+    if (capacity < 1 || capacity > 100000) {
+      setToastType('error');
+      setToastMsg('Event capacity must be between 1 and 100,000.');
+      return;
+    }
+
+    if (price < 0 || price > 1000000) {
+      setToastType('error');
+      setToastMsg('Admission price must be between ₹0 and ₹10,00,000.');
+      return;
+    }
+
     setLoading(true);
 
     const formData = new FormData();
@@ -212,7 +224,7 @@ const CreateEvent = () => {
               <label className="text-[9px] tracking-widest uppercase font-semibold text-luxury-gold mb-1.5 pl-1">City</label>
               <input
                 type="text"
-                placeholder="New York"
+                placeholder="Mumbai"
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
                 className="bg-luxury-cream border border-[#E5D3B3]/40 rounded-xl px-4 py-3 text-xs text-luxury-dark focus:outline-none"
@@ -227,19 +239,29 @@ const CreateEvent = () => {
               <label className="text-[9px] tracking-widest uppercase font-semibold text-luxury-gold mb-1.5 pl-1">Maximum Capacity</label>
               <input
                 type="number"
+                min="1"
+                max="100000"
                 value={capacity}
-                onChange={(e) => setCapacity(parseInt(e.target.value))}
+                onChange={(e) => {
+                  const val = parseInt(e.target.value);
+                  setCapacity(isNaN(val) ? 0 : val);
+                }}
                 className="bg-luxury-cream border border-[#E5D3B3]/40 rounded-xl px-4 py-3 text-xs text-luxury-dark focus:outline-none"
                 required
               />
             </div>
             <div className="flex flex-col">
-              <label className="text-[9px] tracking-widest uppercase font-semibold text-luxury-gold mb-1.5 pl-1">Admission Price ($)</label>
+              <label className="text-[9px] tracking-widest uppercase font-semibold text-luxury-gold mb-1.5 pl-1">Admission Price (₹)</label>
               <input
                 type="number"
+                min="0"
+                max="1000000"
                 placeholder="0 for Complimentary"
                 value={price}
-                onChange={(e) => setPrice(parseFloat(e.target.value))}
+                onChange={(e) => {
+                  const val = parseFloat(e.target.value);
+                  setPrice(isNaN(val) ? 0 : val);
+                }}
                 className="bg-luxury-cream border border-[#E5D3B3]/40 rounded-xl px-4 py-3 text-xs text-luxury-dark focus:outline-none"
                 required
               />

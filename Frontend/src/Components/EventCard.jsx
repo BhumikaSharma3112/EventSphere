@@ -92,7 +92,7 @@ const EventCard = ({ event, onWishlistToggle, isWishlisted }) => {
           <div className="flex flex-col">
             <span className="text-[9px] uppercase tracking-widest text-luxury-muted">Admission</span>
             <span className="font-display font-bold text-base text-luxury-dark">
-              {event.price > 0 ? `$${event.price}` : 'Complimentary'}
+              {event.price > 0 ? `₹${event.price}` : 'Complimentary'}
             </span>
           </div>
 

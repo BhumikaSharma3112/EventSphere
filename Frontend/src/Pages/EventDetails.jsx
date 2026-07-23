@@ -231,7 +231,7 @@ const EventDetails = () => {
               <div>
                 <span className="text-[9px] uppercase tracking-widest text-luxury-muted block">Admission</span>
                 <span className="font-display font-bold text-xl text-luxury-dark">
-                  {currentEvent.price > 0 ? `$${currentEvent.price}` : 'Complimentary'}
+                  {currentEvent.price > 0 ? `₹${currentEvent.price}` : 'Complimentary'}
                 </span>
               </div>
               <div className="text-right">
@@ -321,7 +321,7 @@ const EventDetails = () => {
             <div className="flex flex-col">
               <span className="text-[9px] uppercase tracking-widest text-luxury-muted">Total Due</span>
               <span className="font-display font-bold text-lg text-luxury-dark">
-                {currentEvent.price > 0 ? `$${currentEvent.price * ticketCount}` : 'Complimentary'}
+                {currentEvent.price > 0 ? `₹${currentEvent.price * ticketCount}` : 'Complimentary'}
               </span>
             </div>
             

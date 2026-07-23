@@ -46,7 +46,7 @@ const Dashboard = () => {
         <div className="bg-white border border-[#E5D3B3]/35 rounded-3xl p-5 shadow-luxury">
           <DollarSign className="h-5 w-5 text-luxury-gold mb-2" />
           <span className="text-[9px] uppercase tracking-widest text-luxury-muted block">Platform Revenue</span>
-          <span className="font-display text-xl font-bold text-luxury-dark">${stats.totalRevenue}</span>
+          <span className="font-display text-xl font-bold text-luxury-dark">₹{stats.totalRevenue}</span>
         </div>
 
         <div className="bg-white border border-[#E5D3B3]/35 rounded-3xl p-5 shadow-luxury">

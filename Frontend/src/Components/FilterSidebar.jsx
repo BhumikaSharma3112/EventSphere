@@ -160,7 +160,7 @@ const FilterSidebar = ({ isOpen, onClose, onApply, currentFilters }) => {
               <label className="text-[10px] tracking-widest uppercase font-semibold text-luxury-gold">
                 Max Admission
               </label>
-              <span className="font-display font-semibold text-sm text-luxury-dark">${priceMax}</span>
+              <span className="font-display font-semibold text-sm text-luxury-dark">₹{priceMax}</span>
             </div>
             <input
               type="range"
@@ -173,7 +173,7 @@ const FilterSidebar = ({ isOpen, onClose, onApply, currentFilters }) => {
             />
             <div className="flex justify-between text-[9px] text-luxury-muted mt-1">
               <span>Complimentary</span>
-              <span>$1000+</span>
+              <span>₹1000+</span>
             </div>
           </div>
 

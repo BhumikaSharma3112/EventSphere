@@ -161,7 +161,7 @@ const Home = () => {
                 </div>
                 <div className="flex items-center gap-1">
                   <span className="text-[10px] uppercase text-luxury-muted">Admission:</span>
-                  <span className="font-semibold text-luxury-dark">${featuredEvent.price}</span>
+                  <span className="font-semibold text-luxury-dark">₹{featuredEvent.price}</span>
                 </div>
               </div>
               <Link

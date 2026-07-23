@@ -10,8 +10,25 @@ const Settings = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
 
+  const parsePhone = (rawPhone) => {
+    if (!rawPhone) return { code: '+91', num: '' };
+    const parts = rawPhone.split(' ');
+    if (parts.length > 1 && parts[0].startsWith('+')) {
+      return { code: parts[0], num: parts.slice(1).join(' ') };
+    }
+    const prefixes = ['+91', '+1', '+44', '+971'];
+    for (let prefix of prefixes) {
+      if (rawPhone.startsWith(prefix)) {
+        return { code: prefix, num: rawPhone.replace(prefix, '').trim() };
+      }
+    }
+    return { code: '+91', num: rawPhone };
+  };
+
+  const initialPhone = parsePhone(user?.phone);
   const [name, setName] = useState(user?.name || '');
-  const [phone, setPhone] = useState(user?.phone || '');
+  const [countryCode, setCountryCode] = useState(initialPhone.code);
+  const [phoneNum, setPhoneNum] = useState(initialPhone.num);
   const [bio, setBio] = useState(user?.bio || '');
   const [profilePic, setProfilePic] = useState(null);
   
@@ -23,9 +40,20 @@ const Settings = () => {
     e.preventDefault();
     setLoading(true);
 
+    const fullPhone = `${countryCode} ${phoneNum}`.trim();
+    if (phoneNum) {
+      const requiredLength = countryCode === '+91' || countryCode === '+1' ? 10 : countryCode === '+44' ? 11 : countryCode === '+971' ? 9 : 0;
+      if (requiredLength && phoneNum.length !== requiredLength) {
+        setToastType('error');
+        setToastMsg(`Telephone number must be exactly ${requiredLength} digits for country code ${countryCode}.`);
+        setLoading(false);
+        return;
+      }
+    }
+
     const formData = new FormData();
     formData.append('name', name);
-    formData.append('phone', phone);
+    formData.append('phone', fullPhone);
     formData.append('bio', bio);
     if (profilePic) {
       formData.append('profilePicture', profilePic);
@@ -100,10 +128,31 @@ const Settings = () => {
             <label className="text-[9px] tracking-widest uppercase font-semibold text-luxury-gold mb-1.5 pl-1">Telephone Number</label>
             <div className="flex items-center gap-2 bg-luxury-cream border border-[#E5D3B3]/40 rounded-xl px-3.5 py-3">
               <Phone className="h-4.5 w-4.5 text-luxury-gold shrink-0" />
+              <select
+                value={countryCode}
+                onChange={(e) => {
+                  setCountryCode(e.target.value);
+                  setPhoneNum('');
+                }}
+                className="bg-transparent border-none text-xs focus:outline-none text-luxury-gold font-semibold pr-1.5 cursor-pointer shrink-0"
+              >
+                <option value="+91">+91 (IN)</option>
+                <option value="+1">+1 (US/CA)</option>
+                <option value="+44">+44 (UK)</option>
+                <option value="+971">+971 (UAE)</option>
+              </select>
               <input
-                type="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                type="text"
+                pattern="\d*"
+                placeholder={countryCode === '+91' || countryCode === '+1' ? "10-digit number" : countryCode === '+44' ? "11-digit number" : "9-digit number"}
+                value={phoneNum}
+                onChange={(e) => {
+                  const val = e.target.value.replace(/\D/g, '');
+                  const maxLength = countryCode === '+91' || countryCode === '+1' ? 10 : countryCode === '+44' ? 11 : countryCode === '+971' ? 9 : 15;
+                  if (val.length <= maxLength) {
+                    setPhoneNum(val);
+                  }
+                }}
                 className="w-full bg-transparent border-none text-xs focus:outline-none text-luxury-dark font-medium"
               />
             </div>

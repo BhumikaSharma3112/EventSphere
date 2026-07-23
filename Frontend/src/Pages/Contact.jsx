@@ -72,7 +72,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <span className="text-[9px] uppercase tracking-widest text-luxury-gold block mb-0.5">Concierge Phone</span>
-                  <span className="text-luxury-dark">+1 (555) 880-Luxe</span>
+                  <span className="text-luxury-dark">+91 (022) 6665 3366</span>
                 </div>
               </div>
 
@@ -82,7 +82,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <span className="text-[9px] uppercase tracking-widest text-luxury-gold block mb-0.5">Maison Address</span>
-                  <span className="text-luxury-dark">742 Fifth Avenue, Manhattan NY</span>
+                  <span className="text-luxury-dark">The Taj Mahal Palace, Colaba, Mumbai</span>
                 </div>
               </div>
             </div>
