@@ -122,59 +122,74 @@ def build_pdf():
     
     story.append(Paragraph("<b>System Requirements:</b>", section_title_style))
     story.append(Paragraph("• Internet Connection", bullet_style))
-    story.append(Paragraph("• Modern Web Browser:", bullet_style))
-    story.append(Paragraph("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o Google Chrome", bullet_style))
-    story.append(Paragraph("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o Microsoft Edge", bullet_style))
-    story.append(Paragraph("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o Mozilla Firefox", bullet_style))
-    story.append(Paragraph("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o Apple Safari, etc.", bullet_style))
+    story.append(Paragraph("• Modern Web Browser (Google Chrome, Microsoft Edge, Firefox, Safari)", bullet_style))
+    story.append(Paragraph("• Node.js (v18 or higher) and npm installed locally", bullet_style))
     
     story.append(Spacer(1, 10))
-    story.append(Paragraph("<b>1. Starting The Application:</b>", section_title_style))
-    story.append(Paragraph("• Open your preferred web browser.", bullet_style))
-    story.append(Paragraph("• Visit the live website: <b>https://eventsphere-prestige.onrender.com/</b> (or <b>http://localhost:5173</b> for local development).", bullet_style))
-    story.append(Paragraph("• Wait for the website to load.", bullet_style))
-    story.append(Paragraph("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o <b>NOTE:</b> Since the server may be hosted on Render's free tier, the first database/server request may take <b>30–60 seconds</b> if the server is sleeping. After that, it wakes up and works normally.", bullet_style))
+    story.append(Paragraph("<b>1. Local Setup &amp; Installation:</b>", section_title_style))
+    story.append(Paragraph("Follow these instructions to run EventSphere locally on your computer:", body_style))
     
-    story.append(Spacer(1, 10))
-    story.append(Paragraph("<b>2. How to Use:</b>", section_title_style))
+    story.append(Paragraph("<b>Option A: Installing via Git Clone:</b>", step_title_style))
+    story.append(Paragraph("1. Open your terminal/command prompt and clone the repository:<br/>&nbsp;&nbsp;&nbsp;&nbsp;<code>git clone https://github.com/BhumikaSharma3112/EventSphere.git</code>", bullet_style))
+    story.append(Paragraph("2. Navigate into the cloned directory:<br/>&nbsp;&nbsp;&nbsp;&nbsp;<code>cd EventSphere</code>", bullet_style))
     
-    story.append(Paragraph("Step 1:", step_title_style))
-    story.append(Paragraph("Open the EventSphere website to view premium curations.", body_style))
+    story.append(Paragraph("<b>Option B: Installing via ZIP File:</b>", step_title_style))
+    story.append(Paragraph("1. Download and extract the project ZIP archive using your native system extractor, WinRAR, or 7-Zip.", bullet_style))
+    story.append(Paragraph("2. Open terminal/command prompt and navigate into the extracted root folder:<br/>&nbsp;&nbsp;&nbsp;&nbsp;<code>cd EventSphere</code> (or your specific extracted folder name).", bullet_style))
     
-    story.append(Paragraph("Step 2:", step_title_style))
-    story.append(Paragraph("Click <b>Sign In</b> on the top right. Register a new account or log in with your credentials. You can select either the <b>Attendee</b> (guest) or <b>Organizer</b> (curator) role.", body_style))
-    
-    story.append(Paragraph("Step 3:", step_title_style))
-    story.append(Paragraph("<b>For Attendees:</b> Browse listed events (e.g. Wellness Retreats, Heritage Art), click on an event card, choose your ticket quantity, and reserve your complimentary or paid pass.", body_style))
+    story.append(Paragraph("<b>Installing Dependencies &amp; Configuration (For Both Options):</b>", step_title_style))
+    story.append(Paragraph("1. <b>Install Frontend Dependencies:</b> Navigate to the Frontend folder and install:<br/>&nbsp;&nbsp;&nbsp;&nbsp;<code>cd Frontend</code><br/>&nbsp;&nbsp;&nbsp;&nbsp;<code>npm install</code>", bullet_style))
+    story.append(Paragraph("2. <b>Install Backend Dependencies:</b> Navigate to the Backend folder and install:<br/>&nbsp;&nbsp;&nbsp;&nbsp;<code>cd ../Backend</code><br/>&nbsp;&nbsp;&nbsp;&nbsp;<code>npm install</code>", bullet_style))
+    story.append(Paragraph("3. <b>Configure Environment Settings:</b> Create a file named <code>.env</code> inside the <code>Backend</code> folder. Add parameters like <code>PORT=5000</code> and <code>JWT_SECRET=your_jwt_secret_key</code>. (Leave the MongoDB connection URI blank to automatically trigger the database local mock fallback configuration for quick offline testing).", bullet_style))
     
     story.append(PageBreak())
 
     # --- PAGE 2 ---
-    story.append(Paragraph("Step 4:", step_title_style))
-    story.append(Paragraph("Go to the <b>My Tickets</b> portal (accessible via the profile dropdown or the dashboard sidebar) to view your active passes, view secure ticket QR codes, and download invitation passes as premium PDFs.", body_style))
+    story.append(Paragraph("<b>2. Starting The Application:</b>", section_title_style))
+    story.append(Paragraph("1. <b>Launch the Backend Server:</b> Navigate to the <code>Backend</code> folder and run:<br/>&nbsp;&nbsp;&nbsp;&nbsp;<code>npm run dev</code> (runs backend on port 5000).", bullet_style))
+    story.append(Paragraph("2. <b>Launch the Frontend Server:</b> Open a new terminal window, navigate to the <code>Frontend</code> folder, and run:<br/>&nbsp;&nbsp;&nbsp;&nbsp;<code>npm run dev</code> (runs frontend on port 5173).", bullet_style))
+    story.append(Paragraph("3. <b>Visit the App:</b> Open your browser to <b>http://localhost:5173</b>.", bullet_style))
+    story.append(Paragraph("4. <b>Or visit the live deployed website:</b> <b>https://eventsphere-prestige.onrender.com/</b>.<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o <b>NOTE:</b> If using the live Render link, the first database request may take <b>30–60 seconds</b> to load if the free tier hosting is sleeping.", bullet_style))
     
-    story.append(Paragraph("Step 5:", step_title_style))
-    story.append(Paragraph("<b>For Organizers:</b> Go to the Organizer dashboard. Click <b>Curate Event</b> to list a brand-new curation, fill out the form fields (title, category, date, city, pricing, capacity), and upload your banner and gallery images.", body_style))
+    story.append(Spacer(1, 10))
+    story.append(Paragraph("<b>3. How to Use:</b>", section_title_style))
     
-    story.append(Paragraph("Step 6:", step_title_style))
-    story.append(Paragraph("On the Organizer panel, navigate to the <b>Attendees Registry</b> for your curated event. Click <b>'Simulate Camera Scan'</b> to automatically detect pending guest check-in QR codes, mark them as Admitted with live timestamps, and trigger celebratory confetti.", body_style))
+    story.append(Paragraph("Step 1: Browse Events", step_title_style))
+    story.append(Paragraph("Open the website to view the luxury curations registry.", body_style))
     
-    story.append(Spacer(1, 15))
-    story.append(Paragraph("<b>3. Expected Output:</b>", section_title_style))
+    story.append(Paragraph("Step 2: Sign In / Access Roles", step_title_style))
+    story.append(Paragraph("Click <b>Sign In</b> on the top right. Register a new account or log in with credentials. Select either the <b>Attendee</b> (guest) or <b>Organizer</b> (curator) role.", body_style))
+    
+    story.append(Paragraph("Step 3: Book Ticket (Attendee)", step_title_style))
+    story.append(Paragraph("Browse listed events, click on an event card, choose your ticket quantity, and reserve your admission pass.", body_style))
+    
+    story.append(Paragraph("Step 4: View &amp; Download Ticket (Attendee)", step_title_style))
+    story.append(Paragraph("Navigate to <b>My Tickets</b> to view your active passes, scannable QR codes, and download invitation passes as premium PDFs.", body_style))
+    
+    story.append(Paragraph("Step 5: Curate Event (Organizer)", step_title_style))
+    story.append(Paragraph("Go to the Organizer dashboard. Click <b>Curate Event</b> to list a brand-new curation, specify capacity limits, ticket pricing, and upload banner/gallery images.", body_style))
+    
+    story.append(Paragraph("Step 6: QR Scan &amp; Attendee Check-In (Organizer)", step_title_style))
+    story.append(Paragraph("On the Organizer panel, navigate to the <b>Attendees Registry</b> for your curated event. Click <b>'Simulate Camera Scan'</b> to automatically scan pending guest check-in QR codes, check them in with live timestamps, and trigger confetti.", body_style))
+    
+    story.append(PageBreak())
+
+    # --- PAGE 3 ---
+    story.append(Paragraph("<b>4. Expected Output:</b>", section_title_style))
     story.append(Paragraph("After successful bookings and actions, the application displays:", body_style))
     story.append(Paragraph("• Scannable QR Codes generated uniquely for each invitation pass.", bullet_style))
     story.append(Paragraph("• Clean, professional PDF files containing booking codes, event location, and entry guidelines.", bullet_style))
     story.append(Paragraph("• Dynamic analytics graphs on Admin/Organizer dashboards depicting total sales (₹) and ticket distribution.", bullet_style))
     
     story.append(Spacer(1, 10))
-    story.append(Paragraph("<b>4. Error Handling:</b>", section_title_style))
+    story.append(Paragraph("<b>5. Error Handling:</b>", section_title_style))
     story.append(Paragraph("If incorrect or incomplete information is entered:", body_style))
     story.append(Paragraph("• <b>Validation Alerts:</b> Mandatory fields like phone number are strictly checked (10 digits for Indian number selectors).", bullet_style))
-    story.append(Paragraph("• <b>Price & Capacity Clamps:</b> Admission price cannot exceed ₹10,00,000, and capacity is locked up to 100,000 to prevent layout breakage.", bullet_style))
+    story.append(Paragraph("• <b>Price &amp; Capacity Clamps:</b> Admission price cannot exceed ₹10,00,000, and capacity is locked up to 100,000 to prevent layout breakage.", bullet_style))
     story.append(Paragraph("• If the database connection drops, the backend automatically falls back to an in-memory database configuration so that local testing continues uninterrupted.", bullet_style))
     
     story.append(Spacer(1, 10))
-    story.append(Paragraph("<b>5. Closing the Application:</b>", section_title_style))
+    story.append(Paragraph("<b>6. Closing the Application:</b>", section_title_style))
     story.append(Paragraph("• Click <b>Sign Out</b> from the top-right profile menu to safely close your session.", body_style))
     story.append(Paragraph("• Simply close the browser tab. User credentials are stored securely in local storage and HTTP cookies.", body_style))
 
