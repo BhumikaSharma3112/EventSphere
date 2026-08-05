@@ -131,7 +131,7 @@ def build_pdf():
     story.append(Spacer(1, 10))
     story.append(Paragraph("<b>1. Starting The Application:</b>", section_title_style))
     story.append(Paragraph("• Open your preferred web browser.", bullet_style))
-    story.append(Paragraph("• Visit: <b>http://localhost:5173</b> (or your live deployed URL).", bullet_style))
+    story.append(Paragraph("• Visit the live website: <b>https://eventsphere-prestige.onrender.com/</b> (or <b>http://localhost:5173</b> for local development).", bullet_style))
     story.append(Paragraph("• Wait for the website to load.", bullet_style))
     story.append(Paragraph("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o <b>NOTE:</b> Since the server may be hosted on Render's free tier, the first database/server request may take <b>30–60 seconds</b> if the server is sleeping. After that, it wakes up and works normally.", bullet_style))
     
